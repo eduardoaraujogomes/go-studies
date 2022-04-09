@@ -1,2 +1,2 @@
-# Repositório para Estudos da Linguagem de programação GoLang 
+# Repositório para Estudos - GoLang 
  
