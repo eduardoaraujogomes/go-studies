@@ -32,8 +32,15 @@ func main() {
 		522.4,
 	}
 
+	// var contaDaCris *ContaCorrente
+	// contaDaCris = new(ContaCorrente)
+
+	contaDaCris := new(ContaCorrente)
+	contaDaCris.titular = "Cris"
+
 	fmt.Println(contaDoEduardo)
 	fmt.Println(contaDaBruna)
 	fmt.Println(contaGuilherme)
+	fmt.Println(*contaDaCris)
 
 }
