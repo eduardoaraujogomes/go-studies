@@ -19,7 +19,17 @@ func (c *ContaCorrente) Sacar(valorDoSaque float64) string {
 	return "Saldo insuficiente"
 }
 
+// função variádica
+// func Somando(numeros ...int) int {
+// 	resultadoDaSoma := 0
+// 	for _, numero := range numeros {
+// 		resultadoDaSoma += numero
+// 	}
+// 	return resultadoDaSoma
+// }
+
 func main() {
+
 	contaDaSilvia := ContaCorrente{}
 	contaDaSilvia.titular = "Silvia"
 	contaDaSilvia.saldo = 500
@@ -30,6 +40,14 @@ func main() {
 	fmt.Println(contaDaSilvia.Sacar(-100))
 
 	fmt.Println(contaDaSilvia.saldo)
+
+	//função variádica
+	// numeros := []int{1, 2, 3, 4, 5, 6}
+	// fmt.Println(Somando(numeros...))
+	// fmt.Println(Somando(1))
+	// fmt.Println(Somando(1, 1))
+	// fmt.Println(Somando(1, 1, 1))
+	// fmt.Println(Somando(1, 1, 2, 4))
 
 	// var contaDoEduardo ContaCorrente = ContaCorrente{}
 
