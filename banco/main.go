@@ -19,6 +19,14 @@ func (c *ContaCorrente) Sacar(valorDoSaque float64) string {
 	return "Saldo insuficiente"
 }
 
+func (c *ContaCorrente) Depositar(valorDoDeposito float64) (string, float64) {
+	if valorDoDeposito > 0 {
+		c.saldo += valorDoDeposito
+		return "Deposito realizado com sucesso. Saldo atual: ", c.saldo
+	}
+	return "Valor do depósito menor que zero. Saldo atual: ", c.saldo
+}
+
 // função variádica
 // func Somando(numeros ...int) int {
 // 	resultadoDaSoma := 0
@@ -38,6 +46,14 @@ func main() {
 
 	fmt.Println(contaDaSilvia.Sacar(100))
 	fmt.Println(contaDaSilvia.Sacar(-100))
+
+	fmt.Println(contaDaSilvia.saldo)
+
+	fmt.Println(contaDaSilvia.Depositar(100))
+	fmt.Println(contaDaSilvia.Depositar(-100))
+
+	status, valor := contaDaSilvia.Depositar(200)
+	fmt.Println(status, valor)
 
 	fmt.Println(contaDaSilvia.saldo)
 
