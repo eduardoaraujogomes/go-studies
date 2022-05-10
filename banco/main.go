@@ -27,6 +27,15 @@ func (c *ContaCorrente) Depositar(valorDoDeposito float64) (string, float64) {
 	return "Valor do depósito menor que zero. Saldo atual: ", c.saldo
 }
 
+func (c *ContaCorrente) Transferir(valorDaTransferencia float64, contaDestino ContaCorrente) bool {
+	if valorDaTransferencia < c.saldo {
+		c.saldo -= valorDaTransferencia
+		contaDestino.Depositar(valorDaTransferencia)
+		return true
+	}
+	return false
+}
+
 // função variádica
 // func Somando(numeros ...int) int {
 // 	resultadoDaSoma := 0
@@ -38,24 +47,33 @@ func (c *ContaCorrente) Depositar(valorDoDeposito float64) (string, float64) {
 
 func main() {
 
-	contaDaSilvia := ContaCorrente{}
-	contaDaSilvia.titular = "Silvia"
-	contaDaSilvia.saldo = 500
+	contaDaSilvia := ContaCorrente{titular: "Silvia", saldo: 300}
+	contaDoGustavo := ContaCorrente{titular: "Gustavo", saldo: 100}
 
-	fmt.Println(contaDaSilvia.saldo)
+	status := contaDaSilvia.Transferir(200, contaDoGustavo)
 
-	fmt.Println(contaDaSilvia.Sacar(100))
-	fmt.Println(contaDaSilvia.Sacar(-100))
+	fmt.Println(status)
+	fmt.Println(contaDaSilvia)
+	fmt.Println(contaDoGustavo)
 
-	fmt.Println(contaDaSilvia.saldo)
+	// contaDaSilvia := ContaCorrente{}
+	// contaDaSilvia.titular = "Silvia"
+	// contaDaSilvia.saldo = 500
 
-	fmt.Println(contaDaSilvia.Depositar(100))
-	fmt.Println(contaDaSilvia.Depositar(-100))
+	// fmt.Println(contaDaSilvia.saldo)
 
-	status, valor := contaDaSilvia.Depositar(200)
-	fmt.Println(status, valor)
+	// fmt.Println(contaDaSilvia.Sacar(100))
+	// fmt.Println(contaDaSilvia.Sacar(-100))
 
-	fmt.Println(contaDaSilvia.saldo)
+	// fmt.Println(contaDaSilvia.saldo)
+
+	// fmt.Println(contaDaSilvia.Depositar(100))
+	// fmt.Println(contaDaSilvia.Depositar(-100))
+
+	// status, valor := contaDaSilvia.Depositar(200)
+	// fmt.Println(status, valor)
+
+	// fmt.Println(contaDaSilvia.saldo)
 
 	//função variádica
 	// numeros := []int{1, 2, 3, 4, 5, 6}
