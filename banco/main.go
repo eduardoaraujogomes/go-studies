@@ -1,54 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
 
-type ContaCorrente struct {
-	titular       string
-	numeroAgencia int
-	numeroConta   int
-	saldo         float64
-}
-
-func (c *ContaCorrente) Sacar(valorDoSaque float64) string {
-	podeSacar := valorDoSaque > 0 && valorDoSaque <= c.saldo
-
-	if podeSacar {
-		c.saldo -= valorDoSaque
-		return "Saque realizado com sucesso!"
-	}
-	return "Saldo insuficiente"
-}
-
-func (c *ContaCorrente) Depositar(valorDoDeposito float64) (string, float64) {
-	if valorDoDeposito > 0 {
-		c.saldo += valorDoDeposito
-		return "Deposito realizado com sucesso. Saldo atual: ", c.saldo
-	}
-	return "Valor do depósito menor que zero. Saldo atual: ", c.saldo
-}
-
-func (c *ContaCorrente) Transferir(valorDaTransferencia float64, contaDestino *ContaCorrente) bool {
-	if valorDaTransferencia < c.saldo {
-		c.saldo -= valorDaTransferencia
-		contaDestino.Depositar(valorDaTransferencia)
-		return true
-	}
-	return false
-}
-
-// função variádica
-// func Somando(numeros ...int) int {
-// 	resultadoDaSoma := 0
-// 	for _, numero := range numeros {
-// 		resultadoDaSoma += numero
-// 	}
-// 	return resultadoDaSoma
-// }
+	"./contas"
+)
 
 func main() {
 
-	contaDaSilvia := ContaCorrente{titular: "Silvia", saldo: 300}
-	contaDoGustavo := ContaCorrente{titular: "Gustavo", saldo: 100}
+	contaDaSilvia := contas.ContaCorrente{Titular: "Silvia", Saldo: 300}
+	contaDoGustavo := contas.ContaCorrente{Titular: "Gustavo", Saldo: 100}
 
 	status := contaDaSilvia.Transferir(200, &contaDoGustavo)
 
