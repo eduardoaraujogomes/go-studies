@@ -1,6 +1,7 @@
+const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
-const { notify } = require("node-notifier");
+const notifier = require("node-notifier");
 const app = express();
 const port = process.env.PORT || 9000;
 
@@ -15,5 +16,19 @@ app.listen(port, () =>
 );
 
 const notify = ({ title, message }, cb) => {
-  cb("some string");
+  notifier.notify(
+    {
+      title: title || "Unknown title",
+      message: message || "Unknown message",
+      icon: path.join(__dirname, "gophertuts.png"),
+      sound: true,
+      wait: true,
+      reply: true,
+      actions: "Completed?",
+      timeout: 15,
+    },
+    (err, response, reply) => {
+      cb(reply);
+    }
+  );
 };
