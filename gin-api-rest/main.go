@@ -1,11 +1,13 @@
 package main
 
 import (
+	"github.com/eduardoaraujogomes/go-studies/database"
 	"github.com/eduardoaraujogomes/go-studies/models"
 	"github.com/eduardoaraujogomes/go-studies/routes"
 )
 
 func main() {
+	database.DatabaseConnection()
 	models.Students = []models.Student{
 		{Name: "Eduardo", CPF: "019129121", RG: "121212121"},
 		{Name: "Ana", CPF: "0133329121", RG: "41414141"},
