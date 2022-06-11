@@ -1,10 +1,17 @@
 package controllers
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/eduardoaraujogomes/go-studies/models"
+	"github.com/gin-gonic/gin"
+)
 
-func ExibeTodosAlunos(c *gin.Context) {
+func GetAllStudents(c *gin.Context) {
+	c.JSON(200, models.Students)
+}
+
+func Greetings(c *gin.Context) {
+	name := c.Params.ByName("name")
 	c.JSON(200, gin.H{
-		"id":   "1",
-		"nome": "Eduardo",
+		"API says:": "Hello " + name + ", is everthing ok?",
 	})
 }
