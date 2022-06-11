@@ -32,3 +32,11 @@ func CreateStudent(c *gin.Context) {
 	database.DB.Create(&student)
 	c.JSON(http.StatusOK, student)
 }
+
+func GetStudentByID(c *gin.Context) {
+	var student models.Student
+	id := c.Params.ByName("id")
+	database.DB.First(&student, id)
+	c.JSON(http.StatusOK, student)
+
+}
