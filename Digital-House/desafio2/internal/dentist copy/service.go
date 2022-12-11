@@ -3,8 +3,8 @@ package dentist
 type Service interface {
 	GetAll() ([]Dentist, error)
 	GetByID(id int) (Dentist, error)
-	Create(firstName, lastName, registration string) (Dentist, error)
-	Update(id int, firstName, lastName, registration string) (Dentist, error)
+	Create(cardNumberID, firstName, lastName string, warehouseID int) (Dentist, error)
+	Update(id int, cardNumberID, firstName, lastName string, warehouseID int) (Dentist, error)
 	Delete(id int) error
 }
 
@@ -34,8 +34,8 @@ func (s service) GetByID(id int) (Dentist, error) {
 	return dentist, nil
 }
 
-func (s service) Create(firstName, lastName, registration string) (Dentist, error) {
-	dentist, err := s.repository.Create(firstName, lastName, registration)
+func (s service) Create(cardNumberID, firstName, lastName string, warehouseID int) (Dentist, error) {
+	dentist, err := s.repository.Create(cardNumberID, firstName, lastName, warehouseID)
 
 	if err != nil {
 		return Dentist{}, err
@@ -44,23 +44,26 @@ func (s service) Create(firstName, lastName, registration string) (Dentist, erro
 	return dentist, nil
 }
 
-func (s service) Update(id int, firstName, lastName, registration string) (Dentist, error) {
+func (s service) Update(id int, cardNumberID, firstName, lastName string, warehouseID int) (Dentist, error) {
 	dentist, err := s.GetByID(id)
 	if err != nil {
 		return Dentist{}, err
 	}
 
+	if cardNumberID != "" {
+		dentist.CardNumberID = cardNumberID
+	}
 	if firstName != "" {
 		dentist.FirstName = firstName
 	}
 	if lastName != "" {
 		dentist.LastName = lastName
 	}
-	if registration != "" {
-		dentist.Registration = registration
+	if warehouseID > 0 {
+		dentist.WarehouseID = warehouseID
 	}
 
-	dentist, err = s.repository.Update(dentist.ID, dentist.FirstName, dentist.LastName, dentist.Registration)
+	dentist, err = s.repository.Update(dentist.ID, dentist.CardNumberID, dentist.FirstName, dentist.LastName, dentist.WarehouseID)
 	if err != nil {
 		return Dentist{}, err
 	}

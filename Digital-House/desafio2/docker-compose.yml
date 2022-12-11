@@ -2,12 +2,10 @@ version: "3.9"
 services:
   mariadb:
     image: mariadb:10.8.3
-    container_name: prona-db
-    hostname: prona-db
+    container_name: digital-house-db
+    hostname: digital-db
     volumes:
       - ./db/:/docker-entrypoint-initdb.d
       - ./db/.data:/var/lib/mysql
     ports:
       - 3306:3306
-    environment:
-      - MARIADB_ROOT_PASSWORD=${DB_PASS}

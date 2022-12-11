@@ -61,10 +61,10 @@ func (c *DentistController) Create() gin.HandlerFunc {
 			return
 		}
 
-		dentist, err := c.service.Create(request.CardNumberID, request.FirstName, request.LastName, request.WarehouseID)
+		dentist, err := c.service.Create(request.FirstName, request.LastName, request.Registration)
 
 		if err != nil {
-			dentistExists := fmt.Sprintf("dentist with this card number id %s exists", request.CardNumberID)
+			dentistExists := fmt.Sprintf("dentist with this registration %s exists", request.Registration)
 			if err.Error() == dentistExists {
 				ctx.JSON(409, web.NewResponse(409, nil, err.Error()))
 				return
@@ -90,10 +90,10 @@ func (c *DentistController) Update() gin.HandlerFunc {
 			return
 		}
 
-		dentist, err := c.service.Update(id, request.CardNumberID, request.FirstName, request.LastName, request.WarehouseID)
+		dentist, err := c.service.Update(id, request.FirstName, request.LastName, request.Registration)
 
 		if err != nil {
-			dentistExists := fmt.Sprintf("dentist with this card number id %s exists", request.CardNumberID)
+			dentistExists := fmt.Sprintf("dentist with this registration %s exists", request.Registration)
 			if err.Error() == dentistExists {
 				ctx.JSON(409, web.NewResponse(409, nil, err.Error()))
 				return

@@ -10,8 +10,8 @@ import (
 type Repository interface {
 	GetAll() ([]Dentist, error)
 	GetByID(id int) (Dentist, error)
-	Create(firstName, lastName, registration string) (Dentist, error)
-	Update(id int, firstName, lastName, registration string) (Dentist, error)
+	Create(cardNumberID, firstName, lastName string, warehouseID int) (Dentist, error)
+	Update(id int, cardNumberID, firstName, lastName string, warehouseID int) (Dentist, error)
 	Delete(id int) error
 }
 
@@ -34,9 +34,10 @@ func (r *repository) GetAll() ([]Dentist, error) {
 
 		err := rows.Scan(
 			&dentist.ID,
+			&dentist.CardNumberID,
 			&dentist.FirstName,
 			&dentist.LastName,
-			&dentist.Registration,
+			&dentist.WarehouseID,
 		)
 		if err != nil {
 			return dentists, err
@@ -57,9 +58,10 @@ func (r *repository) GetByID(id int) (Dentist, error) {
 
 	err = stmt.QueryRow(id).Scan(
 		&dentist.ID,
+		&dentist.CardNumberID,
 		&dentist.FirstName,
 		&dentist.LastName,
-		&dentist.Registration,
+		&dentist.WarehouseID,
 	)
 
 	if err != nil {
@@ -69,11 +71,11 @@ func (r *repository) GetByID(id int) (Dentist, error) {
 	return dentist, nil
 }
 
-func (r *repository) Create(firstName, lastName, registration string) (Dentist, error) {
-	dentist := Dentist{FirstName: firstName, LastName: lastName, Registration: registration}
+func (r *repository) Create(cardNumberID, firstName, lastName string, warehouseID int) (Dentist, error) {
+	dentist := Dentist{CardNumberID: cardNumberID, FirstName: firstName, LastName: lastName, WarehouseID: warehouseID}
 
-	stmt, err := r.db.Exec(CREATE_EMPLOYEE, firstName, lastName,
-		registration)
+	stmt, err := r.db.Exec(CREATE_EMPLOYEE, cardNumberID, firstName, lastName,
+		warehouseID)
 	if err != nil {
 		return Dentist{}, util.CheckError(err)
 	}
@@ -89,11 +91,11 @@ func (r *repository) Create(firstName, lastName, registration string) (Dentist, 
 
 	return dentist, nil
 }
-func (r *repository) Update(id int, firstName, lastName, registration string) (Dentist, error) {
-	dentist := Dentist{id, firstName, lastName, registration}
+func (r *repository) Update(id int, cardNumberID, firstName, lastName string, warehouseID int) (Dentist, error) {
+	dentist := Dentist{id, cardNumberID, firstName, lastName, warehouseID}
 
-	_, err := r.db.Exec(UPDATE_EMPLOYEE, firstName, lastName,
-		registration, id)
+	_, err := r.db.Exec(UPDATE_EMPLOYEE, cardNumberID, firstName, lastName,
+		warehouseID, id)
 
 	if err != nil {
 		return Dentist{}, util.CheckError(err)

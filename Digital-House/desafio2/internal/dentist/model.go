@@ -2,22 +2,18 @@ package dentist
 
 type Dentist struct {
 	ID           int    `json:"id"`
-	CardNumberID string `json:"card_number_id"`
 	FirstName    string `json:"first_name"`
 	LastName     string `json:"last_name"`
-	WarehouseID  int    `json:"warehouse_id"`
+	Registration string `json:"registration"`
 }
 
 type RequestDentistCreate struct {
-	CardNumberID string `json:"card_number_id" binding:"required,numeric"`
-	FirstName    string `json:"first_name" binding:"required"`
-	LastName     string `json:"last_name" binding:"required"`
-	WarehouseID  int    `json:"warehouse_id" binding:"required"`
+	FirstName    string `json:"first_name"`
+	LastName     string `json:"last_name"`
+	Registration string `json:"registration"`
 }
-
 type RequestDentistUpdate struct {
-	CardNumberID string `json:"card_number_id" binding:"omitempty,required,numeric"`
 	FirstName    string `json:"first_name" binding:"omitempty,required"`
 	LastName     string `json:"last_name" binding:"omitempty,required"`
-	WarehouseID  int    `json:"warehouse_id" binding:"omitempty,required"`
+	Registration string `json:"registration" binding:"omitempty,required"`
 }
